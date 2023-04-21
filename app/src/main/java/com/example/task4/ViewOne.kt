@@ -8,6 +8,7 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.view.GestureDetectorCompat
+import com.google.android.material.snackbar.Snackbar
 
 class ViewOne: View {
     constructor(context: Context?) : super(context)
@@ -39,9 +40,13 @@ class ViewOne: View {
         return myGestureDetector.onTouchEvent(event) || super.onTouchEvent(event)
     }
 
-    private inner class MyGestureListener: GestureDetector.SimpleOnGestureListener() {      // End of myGestureListener class
+    private inner class MyGestureListener: GestureDetector.SimpleOnGestureListener() {
         override fun onDoubleTap(e: MotionEvent): Boolean {
-            Log.d(LOGTAG, "DoubleTap")
+            // You can access the properties of the event
+            val xCoord = e.x
+            val yCoord = e.y
+
+            Log.d(LOGTAG, "DoubleTapUp x= $xCoord y= $yCoord")
             return true
         }
 
@@ -51,7 +56,10 @@ class ViewOne: View {
             velocityX: Float,
             velocityY: Float
         ): Boolean {
-            Log.d(LOGTAG, "Fling")
+            val xCoord = e1.x
+            val yCoord = e2.y
+
+            Log.d(LOGTAG, "Fling x= $xCoord y= $yCoord vX= $velocityX  vY=$velocityY")
             return true
         }
 
@@ -66,6 +74,25 @@ class ViewOne: View {
             return true
         }
 
+        override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+            // You can access the properties of the event
+            val xCoord = e.x
+            val yCoord = e.y
+
+            Log.d(LOGTAG, "SingleTapUp x= $xCoord y= $yCoord")
+
+            //Snackbar should display, Snackbars address some of the limitations of Toasts (including queueing),
+            // but are mainly a good way for displaying information temporarily. They also allow some advanced capabilities with more configuration.
+            //FORMAT Snackbar.make(context, textString, displayTime).show()
+
+            Snackbar
+                .make(this@ViewOne, "SingleTapUp x= $xCoord y= $yCoord", Snackbar.LENGTH_SHORT)
+                .show()
+
+            return true
+        }
+
+        /* better to use confrim single tap when using DOUBLE and SINGLE to insure the single tap isnt the start of a double
         override fun onSingleTapUp(ev: MotionEvent): Boolean {
             // You can access the properties of the event
             val xCoord = ev.x
@@ -75,12 +102,17 @@ class ViewOne: View {
             return true
         }
 
-    }
+         */
+
+    }  // End of myGestureListener class
 
 
     companion object {         // declare a constant (must be in the companion of the outer class)
         const val LOGTAG = "MyTask"
     }
+
+
+
 
 }
 
