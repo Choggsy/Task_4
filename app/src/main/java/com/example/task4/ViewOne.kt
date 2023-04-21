@@ -67,7 +67,11 @@ class ViewOne: View {
         }
 
         override fun onSingleTapUp(ev: MotionEvent): Boolean {
-            Log.d(LOGTAG, "SingleTapUp")
+            // You can access the properties of the event
+            val xCoord = ev.x
+            val yCoord = ev.y
+
+            Log.d(LOGTAG, "SingleTapUp x= $xCoord y= $yCoord")
             return true
         }
 
