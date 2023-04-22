@@ -29,17 +29,35 @@ class ViewTwo: View {
     private val myGestureDetector = GestureDetectorCompat(context, MyGestureListener())
 
     private val backCol: Int = Color.rgb(250,250,200)
-    private var backPaint: Paint
+    private var OnePaint: Paint
+
+    private val TwoCol: Int = Color.rgb(250,50,20)
+    private var TwoPaint: Paint
+
+    private val ThreeCol: Int = Color.rgb(50,250,20)
+    private var ThreePaint: Paint
 
     init {
         // 'this' is a reference to the current class.
         // Views have many properties - one is backgroundColor.
         this.setBackgroundColor(Color.argb(128,32,64,255))
 
-        backPaint = Paint().apply {
+        OnePaint = Paint().apply {
             // Set up the paint style
             setStyle(Paint.Style.FILL)
             setColor(backCol)
+        }
+
+        TwoPaint = Paint().apply {
+            // Set up the paint style
+            setStyle(Paint.Style.FILL)
+            setColor(TwoCol)
+        }
+
+        ThreePaint = Paint().apply {
+            // Set up the paint style
+            setStyle(Paint.Style.FILL)
+            setColor(ThreeCol)
         }
     }
 
@@ -51,7 +69,10 @@ class ViewTwo: View {
 
         // Draw rectangle with drawRect(topleftX, topLeftY, bottomRightX, bottomRightY, Paint)
         // Use Ctrl-P to see the parameters for a function
-        canvas.drawRect(0f, 0f, canvasWidth, canvasHeight, backPaint)
+        canvas.drawRect(0f, 0f, canvasWidth, canvasHeight, OnePaint)
+        canvas.drawRect(0f,0f,(canvasWidth*2), canvasHeight,  TwoPaint)
+        canvas.drawRect(0f, 0f,canvasWidth, canvasHeight, ThreePaint)
+
     }
 
 
